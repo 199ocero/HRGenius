@@ -27,6 +27,25 @@ class Employee extends Model
         'country',
     ];
 
+    public function getFullNameAttribute()
+    {
+        $name = $this->first_name;
+
+        if (!empty($this->middle_name)) {
+            $name .= ' ' . substr($this->middle_name, 0, 1) . '.';
+        }
+
+        if (!empty($this->last_name)) {
+            $name .= ' ' . $this->last_name;
+        }
+
+        if (!empty($this->suffix)) {
+            $name .= ' ' . $this->suffix;
+        }
+
+        return $name;
+    }
+
     public function department()
     {
         return $this->belongsTo(Department::class);
